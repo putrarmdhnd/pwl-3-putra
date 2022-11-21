@@ -61,7 +61,7 @@ class AdminController extends Controller
         );
 
         return redirect()->route('admin.books')->with($notification);
-        
+
     }
 
     public function getDataBuku($id){
@@ -86,7 +86,7 @@ class AdminController extends Controller
 
         if($req->hasFile('cover')){
             $extension = $req->file('cover')->extension();
-            
+
             $filename = 'cover_buku_'.time().'.'.$extension;
 
             $req->file('cover')->storeAs(
@@ -108,9 +108,9 @@ class AdminController extends Controller
 
     public function delete_book($id){
         $book = Book::find($id);
-        
+
         Storage::delete('public/cover_buku/'.$book->cover);
-        
+
         $book->delete();
 
         $success = true;
@@ -120,5 +120,16 @@ class AdminController extends Controller
             'success' => $success,
             'message' => $message,
         ]);
+    }
+
+    public function print_books(){
+        $books = Book::all();
+
+        $pdf = PDF::loadview('print_books',['books'=>$books]);
+        return $pdf->download('data_buku.pdf');
+    }
+
+    public function laporan(){
+        return view('print_books');
     }
 }

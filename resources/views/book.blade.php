@@ -6,88 +6,6 @@
 <h1>Data Buku</h1>
 @stop
 
-@section('js')
-<script>
-    $(function() {
-
-        $(document).on('click', '#btn-edit-buku', function() {
-            let id = $(this).data('id');
-
-            $('#image-area').empty();
-
-            $.ajax({
-                type: "get",
-                url: "{{ url('/admin/ajaxadmin/dataBuku')}}/" + id,
-                dataType: 'json',
-                success: function(res) {
-                    $('#edit-judul').val(res.judul);
-                    $('#edit-penerbit').val(res.penerbit);
-                    $('#edit-penulis').val(res.penulis);
-                    $('#edit-tahun').val(res.tahun);
-                    $('#edit-id').val(res.id);
-                    $('#edit-old-cover').val(res.cover);
-
-                    if (res.cover !== null) {
-                        $('#image-area').append(
-                            "<img src='" + baseurl + "/storage/cover_buku/" + res.cover + "' width='200px' />"
-                        );
-                    } else {
-                        $('#image-area').append('[Gambar tidak tersedia]');
-                    }
-                },
-            });
-        });
-    });
-</script>
-@stop
-
-@section('js')
-<script>
-    function deleteConfirmation(npm, judul) {
-        swal.fire({
-            title: "Hapus?",
-            type: 'warning',
-            text: "Apakah anda yakin akan menghapus data buku dengan judul " + judul + "!?",
-
-            showCanacelButton: !0,
-            confirmButtonText: "Ya, lakukan!",
-            cancelButtonText: "Tidak, batalkan!",
-            reverseButtons: !0
-        }).then(function(e) {
-
-            if (e.value === true) {
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-                $.ajax({
-                    type: 'POST',
-                    url: "books/delete/" + npm,
-                    data: {
-                        _token: CSRF_TOKEN
-                    },
-                    dataType: 'JSON',
-                    success: function(results) {
-                        if (results.success === true) {
-                            swal.fire("Done!", results.massage, "success");
-
-                            //referesh page after 2 seconds
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        } else {
-                            swal.fire("Error!", results.message, "error");
-                        }
-                    }
-                });
-
-            } else {
-                e.dismiss;
-            }
-        }, function(dismiss) {
-            return false;
-        });
-    }
-</script>
-@stop
 
 @section('content')
 <div class="container-fluid">
@@ -95,6 +13,7 @@
         <div class="card-header">{{ __('Pengelolaan Buku') }}</div>
         <div class="card-body">
             <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#tambahBukuModal"><i class="fa fa-plus"></i>Tambah Data</button>
+            <a href="{{ route('admin.print.books')}}" target="blank" class="btn btn-secondary mb-4"><i class="fa fa-print"></i>Cetak PDF</a>
             <table id="table-data" class="table table-bordered">
                 <thead>
                     <tr class="text-center">
@@ -236,4 +155,92 @@
         </div>
     </div>
 </div>
-@endsection
+@stop
+
+
+
+
+
+
+@section('js')
+<script>
+    $(function() {
+
+        $(document).on('click', '#btn-edit-buku', function() {
+            let id = $(this).data('id');
+
+            $('#image-area').empty();
+
+            $.ajax({
+                type: "get",
+                url: "{{ url('/admin/ajaxadmin/dataBuku')}}/" + id,
+                dataType: 'json',
+                success: function(res) {
+                    $('#edit-judul').val(res.judul);
+                    $('#edit-penerbit').val(res.penerbit);
+                    $('#edit-penulis').val(res.penulis);
+                    $('#edit-tahun').val(res.tahun);
+                    $('#edit-id').val(res.id);
+                    $('#edit-old-cover').val(res.cover);
+
+                    if (res.cover !== null) {
+                        $('#image-area').append(
+                            "<img src='" + baseurl + "/storage/cover_buku/" + res.cover + "' width='200px' />"
+                        );
+                    } else {
+                        $('#image-area').append('[Gambar tidak tersedia]');
+                    }
+                },
+            });
+        });
+    });
+</script>
+@stop
+
+@section('js')
+<script>
+    function deleteConfirmation(npm, judul) {
+        swal.fire({
+            title: "Hapus?",
+            type: 'warning',
+            text: "Apakah anda yakin akan menghapus data buku dengan judul " + judul + "!?",
+
+            showCanacelButton: !0,
+            confirmButtonText: "Ya, lakukan!",
+            cancelButtonText: "Tidak, batalkan!",
+            reverseButtons: !0
+        }).then(function(e) {
+
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    type: 'POST',
+                    url: "books/delete/" + npm,
+                    data: {
+                        _token: CSRF_TOKEN
+                    },
+                    dataType: 'JSON',
+                    success: function(results) {
+                        if (results.success === true) {
+                            swal.fire("Done!", results.massage, "success");
+
+                            //referesh page after 2 seconds
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            swal.fire("Error!", results.message, "error");
+                        }
+                    }
+                });
+
+            } else {
+                e.dismiss;
+            }
+        }, function(dismiss) {
+            return false;
+        });
+    }
+</script>
+@stop
