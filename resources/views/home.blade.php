@@ -6,7 +6,7 @@
 <h1 class="m-0 text-dark">Dashboard</h1>
 <div class="col-md-6 my-3">
     <button class="btn btn-primary">
-        <a href="admin/book" class="text-white">Input buku</a>
+        <a href="{{route('admin.books')}}" class="text-white">Input buku</a>
     </button>
 </div>
 @stop

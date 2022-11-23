@@ -31,7 +31,7 @@
                             <th>AKSI</th>
                         </tr>
                     </thead>
-                    <tbody class="text-center">
+                    <tbody>
                         @php $no=1; @endphp
                         @foreach ($books as $book)
                             <tr>
@@ -42,20 +42,11 @@
                                 <td>{{ $book->penerbit }}</td>
                                 <td>
                                     @if ($book->cover !== null)
-                                        <img src="{{ asset('storage/cover_buku/' . $book->cover) }}" width="100px"
+                                        <img src="{{ public_path('storage/cover_buku/' .$book->cover) }}" width="80px"
                                             alt="">
                                     @else
                                         [Gambar tidak terssedia]
                                     @endif
-                                </td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" id="btn-edit-buku" class="btn btn-success "
-                                            data-toggle="modal" data-target="#editBukuModal"
-                                            data-id="{{ $book->id }}">Edit</button>
-                                        <button type="button" id="btn-delete-buku" class="btn btn-danger"
-                                            onclick="deleteConfirmation('{{ $book->id }}', '{{ $book->judul }}' )">Hapus</button>
-                                    </div>
                                 </td>
                             </tr>
                         @endforeach

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Book;
 
 class AdminController extends Controller
@@ -129,7 +129,4 @@ class AdminController extends Controller
         return $pdf->download('data_buku.pdf');
     }
 
-    public function laporan(){
-        return view('print_books');
-    }
 }
