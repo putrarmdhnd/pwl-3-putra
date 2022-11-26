@@ -116,23 +116,17 @@
                                 <label for="edit-judul">Judul Buku</label>
                                 <input type="text" class="form-control" name="judul" id="edit-judul" required />
                             </div>
-                        </div>
-                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="edit-penerbit">Penerbit</label>
+                                <input type="text" class="form-control" name="penerbit" id="edit-penerbit" required />
+                            </div>
                             <div class="form-group">
                                 <label for="edit-penulis">Penulis</label>
                                 <input type="text" class="form-control" name="penulis" id="edit-penulis" required />
                             </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="edit-tahun">Tahun</label>
                                 <input type="text" class="form-control" name="tahun" id="edit-tahun" required />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="edit-penerbit">Penerbit</label>
-                                <input type="text" class="form-control" name="penerbit" id="edit-penerbit" required />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -201,7 +195,7 @@
             type: 'warning',
             text: "Apakah anda yakin akan menghapus data buku dengan judul " + judul + "!?",
 
-            showCanacelButton: !0,
+            showCancelButton: !0,
             confirmButtonText: "Ya, lakukan!",
             cancelButtonText: "Tidak, batalkan!",
             reverseButtons: !0
